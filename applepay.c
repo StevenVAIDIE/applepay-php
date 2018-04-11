@@ -148,7 +148,6 @@ PHP_MINFO_FUNCTION(applepay)
 
 // All shared state for applepay_verify_and_decrypt and friends
 #define APPLEPAY_TYPE_ECC 0
-#define APPLEPAY_TYPE_RSA 1
 typedef struct {
     unsigned char *ciphertext;
     size_t         ciphertext_len;
@@ -375,8 +374,6 @@ static int _applepay_parse_cryptogram(zval *z_cryptogram, applepay_state_t *stat
         // Ensure correct version
         if (strcmp(Z_STRVAL_P(z_version), "EC_v1") == 0) {
             state->type = APPLEPAY_TYPE_ECC;
-        } else if (strcmp(Z_STRVAL_P(z_version), "RSA_v1") == 0) {
-            state->type = APPLEPAY_TYPE_RSA;
         } else {
             rc = APPLEPAY_ERROR_WRONG_VERSION;
             break;
