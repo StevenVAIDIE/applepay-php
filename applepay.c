@@ -883,7 +883,7 @@ static int _applepay_decrypt_ciphertext(applepay_state_t *state, char **decrypte
         EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_IVLEN, sizeof(init_vector), NULL);
 
         // Specify key and IV
-        if (EVP_DecryptInit(ctx, NULL, state->sym_key, init_vector) != 1) {
+        if (EVP_DecryptInit_ex(ctx, NULL, NULL, state->sym_key, init_vector) != 1) {
             rc = APPLEPAY_ERROR_FAILED_TO_INIT_DECRYPT;
             break;
         }
